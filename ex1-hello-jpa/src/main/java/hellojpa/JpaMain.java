@@ -24,6 +24,7 @@ public class JpaMain {
 //            member.setId(1L);
 //            member.setName("HelloA");
 //
+//            영속성 컨텍스트에 저장한다.
 //            entityManager.persist(member);
 
             // 데이터 수정
@@ -35,17 +36,21 @@ public class JpaMain {
                     .setMaxResults(10)
                     .getResultList();
 
-            for(Member member : result){
+            for (Member member : result) {
                 System.out.println("Member.name : " + member.getName());
-            };
+            }
+
+            // DB에 변경사항을 반영한다.
             transaction.commit();
 
 
         } catch (Exception e) {
             transaction.rollback();
         } finally {
+            // EntityManager를 종료시킨다.
             entityManager.close();
         }
+        // EntityManagerFactory를 종료시킨다.
         entityManagerFactory.close();
     }
 }
