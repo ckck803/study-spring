@@ -20,10 +20,6 @@ public class PostController {
         return "hello world!";
     }
 
-//    @GetMapping("/post")
-//    public void getPost(){
-//        entityManager.
-//    }
 
     @PostMapping("/post")
     @Transactional
