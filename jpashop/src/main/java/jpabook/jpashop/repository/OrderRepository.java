@@ -29,7 +29,7 @@ public class OrderRepository {
     }
 
     public List<Order> findAll(OrderSearch orderSearch) {
-        //language=JPAQL
+        //language = JPQL
         String jpql = "select o From Order o join o.member m";
         boolean isFirstCondition = true;
 
