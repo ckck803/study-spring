@@ -1,0 +1,6 @@
+rootProject.name = 'sample-security'
+
+include 'security-form'
+include 'security-oauth2'
+include 'security-jwt'
+
