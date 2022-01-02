@@ -1,6 +1,5 @@
 package com.example.backend.security.jwt;
 
-import com.example.backend.security.token.JsonAuthenticationToken;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +15,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+@Component
 @Slf4j
 public class JwtUtils {
 
@@ -57,12 +57,12 @@ public class JwtUtils {
 
         User principal = new User(claims.getSubject(), "", authorities);
 
-        return new JsonAuthenticationToken(principal, token, authorities);
+        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
     public boolean validateToken(String token){
         try{
-            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
         }catch (Exception e){
             log.info("JWT 토큰이 잘못되었습니다.");
