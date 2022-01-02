@@ -25,22 +25,8 @@ const SignUpTemplate = ({ open, onChangeOpen }) => {
     [form]
   );
 
-  // const onClickSignUp = useCallback(() => {
-  //   axios
-  //     .post("http://localhost:8080/api/signup", form, {
-  //       headers: {
-  //         xsrfCookieName: "XSRF-TOKEN",
-  //         xsrfHeaderName: "X-XSRF-TOKEN",
-  //         "Content-Type": "application/x-www-form-urlencoded",
-  //       },
-  //     })
-  //     .then((Response) => {
-  //       console.log(Response);
-  //     });
-  // }, [form]);
-
   const onClickSignUp = useCallback(() => {
-    axios.post("http://localhost:8080/api/signup", form).then((Response) => {
+    axios.post("/api/signup", form).then((Response) => {
       console.log(Response);
     });
   }, [form]);

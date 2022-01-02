@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loginRequest } from "../redux/reducers/LoginReducer";
 import React, { useState, useCallback } from "react";
 import {
   LoginBody,
@@ -10,7 +12,7 @@ import {
 
 const LoginTemplate = ({ open, close }) => {
   const [form, setForm] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -24,21 +26,24 @@ const LoginTemplate = ({ open, close }) => {
     [form]
   );
 
-  const onClick = useCallback(
-    (e) => {
-      axios
-        .post("http://localhost:8080/api/login", form)
-        .then((response) => {
-          localStorage.setItem("token", response.headers.authorization);
-          console.log(localStorage.getItem("token"));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      console.log(form);
-    },
-    [form]
-  );
+  const dispatch = useDispatch();
+  const onClick = useCallback((e) => {
+    dispatch(loginRequest(form));
+  });
+  // const onClick = useCallback(
+  //   (e) => {
+  //     axios
+  //       .post("/api/login", form)
+  //       .then((response) => {
+  //         localStorage.setItem("token", response.headers.authorization);
+  //         console.log(localStorage.getItem("token"));
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   },
+  //   [form]
+  // );
 
   return open ? (
     <ModalBackGround>
@@ -53,9 +58,9 @@ const LoginTemplate = ({ open, close }) => {
         <LoginBody className="login-body">
           <div>
             <input
-              id="username"
-              name="username"
-              type="username"
+              id="email"
+              name="email"
+              type="email"
               placeholder="Email"
               onChange={onChange}
             />
