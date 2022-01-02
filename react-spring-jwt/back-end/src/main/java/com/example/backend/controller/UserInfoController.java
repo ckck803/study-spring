@@ -6,6 +6,7 @@ import com.example.backend.entity.enums.UserRole;
 import com.example.backend.security.jwt.JwtUtils;
 import com.example.backend.security.servcie.UserInfoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -65,7 +66,7 @@ public class UserInfoController {
 
             return ResponseEntity.ok().headers(httpHeaders).body(jwt);
         }catch (Exception e){
-            throw new Exception("inavalid username/password");
+            throw new Exception("invalid username/password");
         }
     }
 }

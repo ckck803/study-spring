@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { ModalBox } from "../assets/css/login";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import { signupRequest } from "../redux/reducers/SignupReducer";
 import {
   ModalBackGround,
   SignUpBody,
@@ -25,10 +27,16 @@ const SignUpTemplate = ({ open, onChangeOpen }) => {
     [form]
   );
 
+  // const onClickSignUp = useCallback(() => {
+  //   axios.post("/api/signup", form).then((Response) => {
+  //     console.log(Response);
+  //   });
+  // }, [form]);
+
+  const dispatch = useDispatch();
   const onClickSignUp = useCallback(() => {
-    axios.post("/api/signup", form).then((Response) => {
-      console.log(Response);
-    });
+    console.log("onClickSignUp");
+    dispatch(signupRequest(form));
   }, [form]);
 
   return open ? (

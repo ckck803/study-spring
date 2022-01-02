@@ -6,15 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import LoginReducer from './redux/reducers/LoginReducer'
 import createSagaMiddleware from 'redux-saga';
-import authSaga from './redux/sagas/LoginSaga'
+import rootSaga from './redux/sagas';
+import createRootReducer from './redux/reducers';
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(LoginReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)))
-// const store = createStore(LoginReducer);
-
-sagaMiddleware.run(authSaga);
+const store = createStore(createRootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)))
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>

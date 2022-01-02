@@ -30,20 +30,6 @@ const LoginTemplate = ({ open, close }) => {
   const onClick = useCallback((e) => {
     dispatch(loginRequest(form));
   });
-  // const onClick = useCallback(
-  //   (e) => {
-  //     axios
-  //       .post("/api/login", form)
-  //       .then((response) => {
-  //         localStorage.setItem("token", response.headers.authorization);
-  //         console.log(localStorage.getItem("token"));
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   },
-  //   [form]
-  // );
 
   return open ? (
     <ModalBackGround>
