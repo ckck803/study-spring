@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import axios from "axios";
 
 // Toast UI Editor 모듈 추가
 import { Editor } from "@toast-ui/react-editor";
@@ -29,15 +30,20 @@ const Write = () => {
 
             console.log("이미지가 업로드 됐습니다.");
 
-            // axios.defaults.withCredentials = true;
-            // const { data: url } = await axios.post(
-            //   `${backUrl}image.do`,
-            //   formData,
-            //   {
-            //     header: { "content-type": "multipart/formdata" },
-            //   }
-            // );
-            // callback(url, "alt text");
+            const { data: filename } = await axios.post(
+              "/file/upload",
+              formData,
+              {
+                header: { "content-type": "multipart/formdata" },
+              }
+            );
+            // .then((response) => {
+            //   console.log(response);
+            // });
+
+            const imageUrl = "http://localhost:8080/file/upload/" + filename;
+
+            callback(imageUrl, "iamge");
           })();
 
           return false;

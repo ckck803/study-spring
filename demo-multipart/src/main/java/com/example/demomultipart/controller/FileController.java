@@ -26,10 +26,12 @@ import java.util.UUID;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class FileController {
 
     String filePath = "/Users/dongwoo-yang/spring-file/";
 
+    @CrossOrigin(origins="*")
     @PostMapping("/file/upload")
     public ResponseEntity upload(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) throws IOException, URISyntaxException {
 
@@ -60,6 +62,8 @@ public class FileController {
         URI uri = new URI(request.getRequestURI());
         return ResponseEntity.created(uri).body("File Upload Success");
     }
+
+    @GetMapping
 
     @PostMapping("/file/upload2")
     public ResponseEntity<Resource> upload2(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) throws IOException {
