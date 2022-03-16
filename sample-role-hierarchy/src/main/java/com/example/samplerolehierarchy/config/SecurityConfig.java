@@ -3,6 +3,7 @@ package com.example.samplerolehierarchy.config;
 import com.example.samplerolehierarchy.service.RoleHierarchyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import java.nio.file.PathMatcher;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +39,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .requestMatchers(PathRequest.toH2Console())
+                ;
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
@@ -47,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user").hasRole("USER")
                 .antMatchers("/manager").hasRole("MANAGER")
                 .antMatchers("/admin").hasRole("ADMIN")
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
 
 
         http
@@ -58,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public RoleHierarchyImpl roleHierarchy(){
         String allHierarchy = roleHierarchyService.findAllHierarchy();
 
-        log.info(allHierarchy);
+        log.info("allHierarchy = {}",allHierarchy);
 
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
         roleHierarchy.setHierarchy(allHierarchy);
